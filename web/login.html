@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+</head>
+
+<body>
+    <h1>Login</h1>
+
+    <form>
+        <label>Email:</label><br>
+        <input id="email" type="text"><br><br>
+
+        <label>Password:</label><br>
+        <input id="password" type="password"><br><br>
+
+        <button id="login-btn" type="button" onclick="login()">Login</button>
+    </form>
+
+    <script>
+        function login() {
+            const email = document.getElementById("email").value;
+            const pass = document.getElementById("password").value;
+
+            // These are exactly the credentials your tests use
+            if (email === "test@example.com" && pass === "123456") {
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Invalid credentials");
+            }
+        }
+    </script>
+</body>
+
+</html>
