@@ -1,10 +1,10 @@
-name: Python Tests
+nname: Trackify UI Tests
 
 on:
   push:
-    branches: [ "main", "feature/setup-ci" ]
+    branches: [ "main", "feature/*" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "feature/*" ]
 
 jobs:
   tests:
@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
@@ -24,6 +24,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run tests
+      - name: Install Playwright Browsers
         run: |
-          pytest -q --disable-warnings --maxfail=1
+          python -m playwright install --with-deps
+
+      - name: Start local server
+        run: |
+          python3 -m http.server 5500 --directory web &
+        shell: bash
+
+      - name: Run pytest
+        env:
+          BASE_URL: "http://127.0.0.1:5500"
+        run: |
+          pytest -s -q
