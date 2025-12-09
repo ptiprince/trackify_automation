@@ -1,12 +1,15 @@
 # Global configuration for Trackify Automation
 
 class Config:
-    # Base URL for the web application
+    # Base URL for UI (your HTML mock)
     BASE_URL = "http://127.0.0.1:5500"
 
+    # Base URL for API (FastAPI server)
+    API_BASE_URL = "http://127.0.0.1:8000/api"
+
     # Browser settings
-    HEADLESS = False     # Run browser with UI (True = headless)
-    SLOW_MO = 300        # Slow motion for debugging
+    HEADLESS = False
+    SLOW_MO = 300  # Slow motion for debugging
 
     # Default credentials for tests
     VALID_EMAIL = "test@example.com"
@@ -15,5 +18,8 @@ class Config:
     INVALID_EMAIL = "wrong@example.com"
     INVALID_PASSWORD = "wrongpass"
 
-    # Timeouts
-    DEFAULT_TIMEOUT = 2000  # milliseconds
+    # Timeouts (milliseconds for UI, seconds for API client)
+    DEFAULT_TIMEOUT = 2000
+    API_DEFAULT_TIMEOUT = 5
+
+
