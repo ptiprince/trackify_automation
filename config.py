@@ -4,8 +4,9 @@ class Config:
     # Base URL for UI (your HTML mock)
     BASE_URL = "http://127.0.0.1:5500"
 
-    # Base URL for API (FastAPI server)
-    API_BASE_URL = "http://127.0.0.1:8000/api"
+    # Base URL for API (used ONLY for relative paths inside TestClient)
+    # No external server, no http://127.0.0.1:8000
+    API_BASE_URL = "/api"
 
     # Browser settings
     HEADLESS = False

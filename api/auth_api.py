@@ -1,22 +1,21 @@
-from typing import Optional, Dict, Any
-
-from api.api_client import ApiClient
-from config import Config
+from fastapi.testclient import TestClient
+from api_server.main import app
 
 
-class AuthAPI(ApiClient):
+class AuthAPI:
     """
-    High-level wrapper for Auth endpoints.
-    Provides login() method for tests.
+    Auth API wrapper for tests.
+    Uses internal FastAPI TestClient — no external server required.
     """
 
     def __init__(self):
-        # Uses API base URL if defined, otherwise falls back to Config defaults
-        super().__init__(base_url=Config.API_BASE_URL)
+        # Internal in-memory FastAPI test client
+        self.client = TestClient(app)
 
     def login(self, email: str, password: str):
         payload = {
             "email": email,
-            "password": password
+            "password": password,
         }
-        return self.post("/login", json=payload)
+        # Direct call to FastAPI /api/login route
+        return self.client.post("/api/login", json=payload)
